@@ -7,82 +7,82 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'ram-kund',
     name: 'Ram Kund',
-    coordinates: [73.8297, 19.9982],
+    coordinates: [73.7897, 19.9975], // Ram Kund ghat, Panchavati
     msl: 592.5,
     category: 'sacred-site',
-    risk_factor: 0.95, // Very high risk - low elevation
+    risk_factor: 0.95,
   },
   {
     id: 'kalaram-temple',
     name: 'Kalarama Temple',
-    coordinates: [73.8276, 19.9988],
+    coordinates: [73.7875, 19.9988], // Near Ram Kund
     msl: 598.2,
     category: 'sacred-site',
-    risk_factor: 0.75, // High risk
+    risk_factor: 0.75,
   },
   {
     id: 'tapovan',
     name: 'Tapovan Area',
-    coordinates: [73.8190, 20.0010],
+    coordinates: [73.7820, 19.9950], // Low-lying area near river
     msl: 590.1,
     category: 'residential',
-    risk_factor: 0.98, // Critical - lowest elevation
+    risk_factor: 0.98,
   },
   {
     id: 'nashik-city-center',
     name: 'Nashik City Center',
-    coordinates: [73.7900, 19.9975],
+    coordinates: [73.7898, 19.9975], // Central Nashik
     msl: 602.3,
     category: 'commercial',
-    risk_factor: 0.45, // Moderate risk
+    risk_factor: 0.45,
   },
   {
     id: 'godavari-bridge',
     name: 'Godavari Bridge',
-    coordinates: [73.8050, 19.9965],
+    coordinates: [73.8050, 19.9965], // Main bridge over river
     msl: 588.0,
     category: 'infrastructure',
-    risk_factor: 1.0, // Critical - closest to riverbed
+    risk_factor: 1.0,
   },
   {
     id: 'sundarnarayan-temple',
     name: 'Sundarnarayan Temple',
-    coordinates: [73.8320, 20.0005],
+    coordinates: [73.7920, 19.9995], // North of Ram Kund
     msl: 605.8,
     category: 'sacred-site',
-    risk_factor: 0.15, // Low risk - elevated
+    risk_factor: 0.15,
   },
   {
     id: 'gangapur-settlement',
     name: 'Gangapur Settlement',
-    coordinates: [73.8140, 19.9950],
+    coordinates: [73.7750, 19.9940], // West of city
     msl: 587.5,
     category: 'residential',
-    risk_factor: 1.0, // Critical
+    risk_factor: 1.0,
   },
   {
     id: 'nashik-ghats',
     name: 'Nashik Ghats (Stepped Banks)',
-    coordinates: [73.8250, 19.9990],
+    coordinates: [73.7885, 19.9978], // Riverbank ghats
     msl: 591.0,
     category: 'cultural',
-    risk_factor: 0.9, // Very high risk
-  },
-  {
-    id: 'trimbak-road',
-    name: 'Trimbak Road Elevation',
-    coordinates: [73.7750, 19.9850],
-    msl: 610.5,
-    category: 'infrastructure',
-    risk_factor: 0.0, // Safe - elevated plateau
+    risk_factor: 0.9,
   },
   {
     id: 'panchvati-area',
     name: 'Panchvati (Five Trees)',
-    coordinates: [73.8160, 20.0025],
+    coordinates: [73.7850, 19.9990], // Sacred panchvati area
     msl: 595.3,
     category: 'residential',
-    risk_factor: 0.8, // High risk
+    risk_factor: 0.8,
+  },
+  {
+    id: 'gangapur-dam',
+    name: 'Gangapur Dam',
+    coordinates: [73.7200, 20.0100], // Upstream dam location
+    msl: 615.0,
+    category: 'infrastructure',
+    risk_factor: 0.0,
   },
 ]
 

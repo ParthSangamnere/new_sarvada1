@@ -3,9 +3,9 @@ import MainLayout from './components/MainLayout'
 import { FloodRiskProvider } from './state/FloodRiskContext'
 
 const navItems = [
-  { id: 'shield', label: 'Shield', icon: 'shield' },
+  { id: 'shield', label: 'Overview', icon: 'shield' },
   { id: 'map', label: 'Map', icon: 'map' },
-  { id: 'activity', label: 'Activity', icon: 'activity' },
+  { id: 'activity', label: 'Performance', icon: 'activity' },
   { id: 'bell', label: 'Alerts', icon: 'bell' },
   { id: 'settings', label: 'Settings', icon: 'settings' },
 ]

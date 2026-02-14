@@ -39,3 +39,36 @@ body {
   background-size: 48px 48px, 48px 48px;
   mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.24), transparent 70%);
 }
+
+/* Custom Scrollbar Styling - Matching UI Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.5), rgba(14, 165, 233, 0.5));
+  border-radius: 4px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.8), rgba(14, 165, 233, 0.8));
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.5) rgba(15, 23, 42, 0.6);
+}

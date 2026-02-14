@@ -57,20 +57,20 @@ export default function TopHeader({ systemStatus = 'LIVE', damLevel = 88 }) {
       </div>
 
       <div className="flex items-center gap-3 text-sm">
-        <div className="flex items-center gap-2 rounded-xl border border-slate-800/80 bg-slate-900/60 px-3 py-2">
-          <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Current Time</span>
-          <span className="font-mono font-semibold text-slate-100">{timeString}</span>
+        <div className="flex items-center gap-2 rounded-xl border border-sky-500/30 bg-gradient-to-r from-slate-900/80 to-slate-800/60 px-4 py-2.5 shadow-lg">
+          <span className="text-xs font-medium uppercase tracking-wider text-slate-300">Current Time</span>
+          <span className="font-mono text-base font-bold text-sky-300">{timeString}</span>
         </div>
-        <div className="flex items-center gap-2 rounded-xl border border-slate-800/80 bg-slate-900/60 px-3 py-2">
-          <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Dam Level</span>
-          <span className="font-mono font-bold text-sky-200">{damLevel}%</span>
+        <div className="flex items-center gap-2 rounded-xl border border-slate-700/50 bg-slate-900/40 px-3 py-2 backdrop-blur-sm">
+          <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">Dam Level</span>
+          <span className="font-mono text-sm font-semibold text-slate-400">{damLevel}%</span>
         </div>
         <button
           type="button"
           onClick={cycleRisk}
-          className="flex items-center gap-2 rounded-xl border border-slate-700/70 bg-slate-900/60 px-3 py-2 text-left shadow-inner transition hover:border-slate-500/70"
+          className="flex items-center gap-2 rounded-xl border border-slate-700/40 bg-slate-900/30 px-3 py-2 text-left backdrop-blur-sm transition hover:border-slate-600/60"
         >
-          <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">System Status</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">System Status</span>
           <AnimatePresence mode="wait">
             <motion.span
               key={riskLevel}

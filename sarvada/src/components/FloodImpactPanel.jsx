@@ -17,18 +17,18 @@ export default function FloodImpactPanel() {
 
   return (
     <motion.div
-      className="glass-surface flex flex-col gap-4 rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
+      className="glass-surface flex h-full max-h-full flex-col gap-4 overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ type: 'spring', stiffness: 200, damping: 20 }}
     >
-      <div>
+      <div className="flex-shrink-0">
         <h3 className="text-lg font-semibold text-slate-100">Inundation Analysis</h3>
         <p className="text-xs text-slate-400">Real-time flood impact assessment</p>
       </div>
 
       {/* Water Elevation Readout */}
-      <div className="rounded-xl border border-slate-800/70 bg-slate-950/60 p-3">
+      <div className="flex-shrink-0 rounded-xl border border-slate-800/70 bg-slate-950/60 p-3">
         <div className="flex items-baseline justify-between">
           <span className="text-xs uppercase tracking-wide text-slate-400">Water Surface Elevation</span>
           <motion.span
@@ -44,10 +44,10 @@ export default function FloodImpactPanel() {
       </div>
 
       {/* Dam Discharge Control */}
-      <div className="space-y-2">
+      <div className="flex-shrink-0 space-y-2">
         <div className="flex items-center justify-between">
           <label className="text-xs uppercase tracking-wide text-slate-400">Dam Discharge</label>
-          <span className="font-mono font-semibold text-amber-200">{damCusecs.toLocaleString()} cusecs</span>
+          <span className="font-mono text-sm font-semibold text-amber-200">{damCusecs.toLocaleString()} cusecs</span>
         </div>
         <input
           type="range"
@@ -56,17 +56,20 @@ export default function FloodImpactPanel() {
           step="5000"
           value={damCusecs}
           onChange={handleCusecsChange}
-          className="w-full cursor-pointer accent-amber-500"
+          className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-slate-800 accent-amber-500"
+          style={{
+            background: `linear-gradient(to right, #f59e0b 0%, #f59e0b ${((damCusecs - 5000) / 95000) * 100}%, #1e293b ${((damCusecs - 5000) / 95000) * 100}%, #1e293b 100%)`
+          }}
         />
-        <div className="flex text-[10px] text-slate-500">
+        <div className="flex justify-between text-[10px] text-slate-500">
           <span>5k</span>
-          <span className="flex-1 text-center">50k</span>
-          <span className="text-right">100k</span>
+          <span>50k</span>
+          <span>100k</span>
         </div>
       </div>
 
       {/* Impact Statistics */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid flex-shrink-0 grid-cols-2 gap-2">
         <div className="rounded-lg border border-slate-800/50 bg-slate-950/40 p-2">
           <p className="text-[10px] uppercase tracking-wide text-slate-500">Flooded Areas</p>
           <motion.p
@@ -93,12 +96,12 @@ export default function FloodImpactPanel() {
 
       {/* Critical Landmarks */}
       {criticalLandmarks.length > 0 && (
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-xs font-semibold text-rose-300">
+        <div className="flex min-h-0 flex-1 flex-col space-y-2 overflow-hidden">
+          <div className="flex flex-shrink-0 items-center gap-2 text-xs font-semibold text-rose-300">
             <AlertCircle size={14} />
             Critical Risk ({criticalLandmarks.length})
           </div>
-          <div className="max-h-48 space-y-1 overflow-y-auto pr-1">
+          <div className="min-h-0 flex-1 space-y-1 overflow-y-auto pr-1">
             {criticalLandmarks.map((impact) => (
               <div
                 key={impact.landmark.id}
@@ -115,13 +118,13 @@ export default function FloodImpactPanel() {
       )}
 
       {/* Flooded Landmarks List */}
-      {flooded.length > 0 && (
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-xs font-semibold text-amber-300">
+      {flooded.length > 0 && criticalLandmarks.length === 0 && (
+        <div className="flex min-h-0 flex-1 flex-col space-y-2 overflow-hidden">
+          <div className="flex flex-shrink-0 items-center gap-2 text-xs font-semibold text-amber-300">
             <Zap size={14} />
             Inundated Landmarks ({flooded.length})
           </div>
-          <div className="max-h-40 space-y-1 overflow-y-auto pr-1">
+          <div className="min-h-0 flex-1 space-y-1 overflow-y-auto pr-1">
             {flooded.map((impact) => (
               <div
                 key={impact.landmark.id}
@@ -136,7 +139,7 @@ export default function FloodImpactPanel() {
       )}
 
       {flooded.length === 0 && (
-        <div className="rounded-lg border border-emerald-700/40 bg-emerald-900/20 p-3 text-center">
+        <div className="flex-shrink-0 rounded-lg border border-emerald-700/40 bg-emerald-900/20 p-3 text-center">
           <p className="text-xs font-semibold text-emerald-300">✓ All Areas Safe</p>
           <p className="text-xs text-emerald-200/70">Current water level does not threaten landmarks</p>
         </div>
