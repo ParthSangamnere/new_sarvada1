@@ -1,30 +1,43 @@
+/**
+ * Dam registry sourced from Maharashtra WRD Pravah bulletin
+ * https://mwrdpravah.in/damsafety/control/pdfLatestReportEng
+ * Last updated: 15 Feb 2026
+ */
 export const DAM_REGISTRY = [
   {
     id: 'gangapur',
     name: 'Gangapur Dam',
-    storagePct: 68.33,
-    mcft: null, // Official PDF provided %; Mcft not supplied
+    storagePct: 67.60,
     dischargeCusecs: 0,
   },
   {
-    id: 'kashyapi',
-    name: 'Kashyapi',
-    storagePct: 93.2,
-    mcft: null,
+    id: 'darna',
+    name: 'Darna Dam',
+    storagePct: 79.17,
     dischargeCusecs: 0,
   },
   {
-    id: 'gautami',
-    name: 'Gautami Godavari',
-    storagePct: 91.27,
-    mcft: null,
+    id: 'mukane',
+    name: 'Mukane Dam',
+    storagePct: 77.29,
     dischargeCusecs: 0,
   },
   {
-    id: 'alwandi',
-    name: 'Alwandi',
-    storagePct: 66.18,
-    mcft: null,
+    id: 'bhavali',
+    name: 'Bhavali Dam',
+    storagePct: 64.43,
+    dischargeCusecs: 0,
+  },
+  {
+    id: 'ozarkhed',
+    name: 'Ozarkhed Dam',
+    storagePct: 67.34,
+    dischargeCusecs: 0,
+  },
+  {
+    id: 'waki',
+    name: 'Waki Dam',
+    storagePct: 92.86,
     dischargeCusecs: 0,
   },
 ]

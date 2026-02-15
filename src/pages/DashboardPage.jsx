@@ -55,12 +55,14 @@ export default function DashboardPage({ damLevel = 88 }) {
     <>
       <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12">
       {/* Left Panel - Alerts Feed */}
+      {/* Left Column - Alerts + Separate Analysis */}
+      <div className="col-span-12 md:col-span-3 flex flex-col gap-4">
       <motion.section
         layout
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ type: 'spring', stiffness: 200, damping: 24 }}
-        className="glass-surface col-span-12 md:col-span-3 flex max-h-[calc(100vh-120px)] flex-col gap-4 overflow-y-auto rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
+        className="glass-surface flex max-h-[calc(100vh-120px)] flex-col gap-4 overflow-y-auto rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
       >
         <div className="flex items-center justify-between pb-3">
           <div>
@@ -95,33 +97,46 @@ export default function DashboardPage({ damLevel = 88 }) {
         <StructuralImpactReport />
         <TacticalImpactPanel />
         <LogisticsCommandPanel />
-        <CitizenSOSPanel />
       </motion.section>
 
-      {/* Center Panel - 3D Map */}
+      {/* Separate Inundation Analysis window */}
+      <motion.section
+        layout
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.1 }}
+      >
+        <FloodImpactPanel />
+      </motion.section>
+      </div>
+
+      {/* Center Panel - 3D Map + Hydrograph */}
       <motion.section
         layout
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.1 }}
-        className="glass-surface col-span-12 md:col-span-6 relative flex min-h-[320px] flex-col overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
+        className="col-span-12 md:col-span-6 flex flex-col gap-4"
       >
-        <div className="flex items-center justify-between pb-3">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Map Center</p>
-            <p className="text-lg font-semibold">Godavari Surface Picture</p>
+        <div className="glass-surface relative flex min-h-[320px] flex-col overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md">
+          <div className="flex items-center justify-between pb-3">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Map Center</p>
+              <p className="text-lg font-semibold">Godavari Surface Picture</p>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-neon" />
+              Live Synchronization
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-neon" />
-            Live Synchronization
+          <div className="flex flex-1 overflow-hidden rounded-xl">
+            <MapContainer />
           </div>
         </div>
-        <div className="flex flex-1 overflow-hidden rounded-xl">
-          <MapContainer />
-        </div>
+        <PredictiveHydrograph />
       </motion.section>
 
-      {/* Right Panel - AI Optimizer + Multi-dam + Flood Impact */}
+      {/* Right Panel - AI Optimizer + Multi-dam */}
       <motion.section
         layout
         initial={{ opacity: 0, x: 20 }}
@@ -130,9 +145,7 @@ export default function DashboardPage({ damLevel = 88 }) {
         className="col-span-12 md:col-span-3 flex flex-col gap-4"
       >
         <AiOptimizerPanel damLevel={damLevel} />
-        <PredictiveHydrograph />
         <MultiDamStatusPanel />
-        <FloodImpactPanel />
       </motion.section>
       </div>
       <SimulationController />

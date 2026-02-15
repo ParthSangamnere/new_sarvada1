@@ -56,7 +56,7 @@ export default function MultiDamStatusPanel() {
                     Storage
                   </div>
                   <p className="mt-1 font-mono text-sm text-slate-100">{dam.storagePct.toFixed(2)}% (official)</p>
-                  <p className="text-[10px] text-slate-500">Mcft not provided in PDF</p>
+                  <p className="text-[10px] text-slate-500">Source: Pravah WRD</p>
                 </div>
                 <div className="rounded-lg border border-slate-800/60 bg-slate-900/40 px-2 py-2">
                   <div className="flex items-center gap-1 text-[11px] uppercase tracking-wide">
