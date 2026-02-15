@@ -24,7 +24,7 @@ export const NASHIK_TOPOGRAPHY = [
     id: 'tapovan',
     name: 'Tapovan Area',
     coordinates: [73.7820, 19.9950], // Low-lying area near river
-    msl: 590.1,
+    msl: 591.0,
     category: 'residential',
     risk_factor: 0.98,
   },
@@ -40,7 +40,7 @@ export const NASHIK_TOPOGRAPHY = [
     id: 'godavari-bridge',
     name: 'Godavari Bridge',
     coordinates: [73.8050, 19.9965], // Main bridge over river
-    msl: 588.0,
+    msl: 591.8,
     category: 'infrastructure',
     risk_factor: 1.0,
   },
@@ -56,7 +56,7 @@ export const NASHIK_TOPOGRAPHY = [
     id: 'gangapur-settlement',
     name: 'Gangapur Settlement',
     coordinates: [73.7750, 19.9940], // West of city
-    msl: 587.5,
+    msl: 591.2,
     category: 'residential',
     risk_factor: 1.0,
   },
@@ -64,7 +64,7 @@ export const NASHIK_TOPOGRAPHY = [
     id: 'nashik-ghats',
     name: 'Nashik Ghats (Stepped Banks)',
     coordinates: [73.7885, 19.9978], // Riverbank ghats
-    msl: 591.0,
+    msl: 591.5,
     category: 'cultural',
     risk_factor: 0.9,
   },

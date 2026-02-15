@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo } from 'react'
 import { useFloodRisk } from '../state/FloodRiskContext'
-import { NASHIK_TOPOGRAPHY } from '../data/nashikTopography'
+import { NASHIK_TOPOGRAPHY, calculateWSE } from '../data/nashikTopography'
 
 const ECONOMIC_WEIGHTS = {
   commercial: 550_000,
@@ -33,7 +33,7 @@ const CATEGORY_LABELS = {
 export default function StructuralImpactReport() {
   const { waterSurfaceElevation } = useFloodRisk()
 
-  const { submerged, totalLoss, breakdown } = useMemo(() => {
+  const { submerged, totalLoss, breakdown, baseLoss, dischargeLoss } = useMemo(() => {
     const impacted = NASHIK_TOPOGRAPHY.filter((l) => waterSurfaceElevation > l.msl).map((l) => {
       const depth = Number((waterSurfaceElevation - l.msl).toFixed(2))
       const base = ECONOMIC_WEIGHTS[l.category] ?? ECONOMIC_WEIGHTS.default
@@ -60,7 +60,23 @@ export default function StructuralImpactReport() {
       default: byCategory.default ?? 0,
     }
 
-    return { submerged: impacted, totalLoss: lossSum, breakdown: ensured }
+    // Compute river-baseline loss (0 cusecs) vs dam-discharge-induced loss
+    const baseWSE = calculateWSE(0)
+    const baseLossVal = NASHIK_TOPOGRAPHY
+      .filter((l) => baseWSE > l.msl)
+      .reduce((acc, l) => {
+        const d = Number((baseWSE - l.msl).toFixed(2))
+        const base = ECONOMIC_WEIGHTS[l.category] ?? ECONOMIC_WEIGHTS.default
+        return acc + base * Math.max(d, 0) * (l.risk_factor ?? 1)
+      }, 0)
+
+    return {
+      submerged: impacted,
+      totalLoss: lossSum,
+      breakdown: ensured,
+      baseLoss: baseLossVal,
+      dischargeLoss: Math.max(0, lossSum - baseLossVal),
+    }
   }, [waterSurfaceElevation])
 
   return (
@@ -75,6 +91,11 @@ export default function StructuralImpactReport() {
           <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400">Estimated Economic Loss</p>
           <p className="font-mono text-xl font-bold text-rose-200">{formatCurrency(totalLoss)}</p>
           <p className="text-[11px] text-slate-500">Dynamic • depth-weighted</p>
+          <p className="mt-0.5 text-[11px] text-slate-500">
+            {dischargeLoss > 0
+              ? `Baseline: ${formatCurrency(baseLoss)} + Discharge: ${formatCurrency(dischargeLoss)}`
+              : 'River-level baseline exposure'}
+          </p>
         </div>
       </div>
 

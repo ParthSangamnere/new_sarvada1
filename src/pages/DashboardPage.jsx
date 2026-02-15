@@ -15,7 +15,7 @@ import { useMemo } from 'react'
 /**
  * Main Dashboard - The command center overview with map and real-time data
  */
-export default function DashboardPage({ damLevel = 88 }) {
+export default function DashboardPage() {
   const { theme, catchmentData, isCatchmentLoading } = useFloodRisk()
 
   const alerts = useMemo(() => {
@@ -144,7 +144,7 @@ export default function DashboardPage({ damLevel = 88 }) {
         transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.15 }}
         className="col-span-12 md:col-span-3 flex flex-col gap-4"
       >
-        <AiOptimizerPanel damLevel={damLevel} />
+        <AiOptimizerPanel />
         <MultiDamStatusPanel />
       </motion.section>
       </div>
@@ -153,6 +153,4 @@ export default function DashboardPage({ damLevel = 88 }) {
   )
 }
 
-DashboardPage.propTypes = {
-  damLevel: AiOptimizerPanel.propTypes.damLevel,
-}
+

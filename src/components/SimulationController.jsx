@@ -78,6 +78,7 @@ export default function SimulationController() {
   const [speed, setSpeed] = useState(1)
   const [simRain, setSimRain] = useState(0)
   const [collapsed, setCollapsed] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef(null)
   const triggersRef = useRef({ alert: false, bridge: false, sos: false })
   const initialReportsRef = useRef(citizenReports)
@@ -120,7 +121,7 @@ export default function SimulationController() {
       handleTriggers(next)
       if (next >= TARGET_CUSECS) {
         clearTimer()
-        setIsSimulating(false)
+        setIsPaused(true)
         setSystemStatus('CRITICAL')
       }
       return next
@@ -135,18 +136,25 @@ export default function SimulationController() {
 
   const startSimulation = () => {
     clearTimer()
-    triggersRef.current = { alert: false, bridge: false, sos: false }
+    if (!isSimulating) {
+      // Fresh start
+      triggersRef.current = { alert: false, bridge: false, sos: false }
+      setSystemStatus('SIMULATION')
+      addLog({ action: 'Simulation Started', value: `Speed ${speed}x`, user: 'ADMIN-01' })
+    } else {
+      // Resume from pause
+      addLog({ action: 'Simulation Resumed', value: `Resumed at ${Math.round(damCusecs).toLocaleString()} cusecs`, user: 'ADMIN-01' })
+    }
     setIsSimulating(true)
-    setSystemStatus('SIMULATION')
-    addLog({ action: 'Simulation Started', value: `Speed ${speed}x`, user: 'ADMIN-01' })
+    setIsPaused(false)
     setSimulatedRainfall(simRain)
     intervalRef.current = setInterval(tick, BASE_INTERVAL_MS)
   }
 
   const stopSimulation = () => {
     clearTimer()
-    setIsSimulating(false)
-    setSystemStatus('LIVE')
+    // Keep isSimulating=true so catchment data (and AI Optimizer) stays frozen
+    setIsPaused(true)
     addLog({ action: 'Simulation Paused', value: `Paused at ${Math.round(damCusecs).toLocaleString()} cusecs`, user: 'ADMIN-01' })
   }
 
@@ -155,6 +163,7 @@ export default function SimulationController() {
     resetSimulation()
     setRiskLevel('alert')
     setSimRain(0)
+    setIsPaused(false)
     triggersRef.current = { alert: false, bridge: false, sos: false }
     setCitizenReports(initialReportsRef.current)
     addLog({ action: 'Simulation Reset', value: 'Restored to Feb 2026 baseline', user: 'ADMIN-01' })
@@ -252,13 +261,13 @@ export default function SimulationController() {
               </div>
 
               <div className="flex items-center gap-2">
-                {!isSimulating ? (
+                {(!isSimulating || isPaused) ? (
                   <button
                     type="button"
                     onClick={startSimulation}
                     className="flex items-center gap-2 rounded-xl bg-cyan-500/20 px-4 py-2 text-sm font-semibold text-cyan-50 ring-1 ring-cyan-400/60 transition hover:bg-cyan-500/30"
                   >
-                    <Play size={16} /> Start Simulation
+                    <Play size={16} /> {isPaused ? 'Resume' : 'Start Simulation'}
                   </button>
                 ) : (
                   <button
