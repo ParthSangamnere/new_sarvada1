@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import PropTypes from 'prop-types'
 import { useFloodRisk } from '../state/FloodRiskContext'
 import { NASHIK_TOPOGRAPHY } from '../data/nashikTopography'
-import { getRiverPolygon, getFloodZones, GODAVARI_RIVER_PATH, RIVER_PROPERTIES } from '../data/godavariRiver'
+import { getRiverPolygon, GODAVARI_RIVER_PATH, RIVER_PROPERTIES } from '../data/godavariRiver'
 import { BRIDGES, SAFE_SHELTERS } from '../data/logisticsData'
 
 // Simple haversine distance (km)
@@ -77,7 +77,7 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
       mapInstance.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: `mapbox://styles/mapbox/${mapStyle}`,
-        center: [73.8150, 19.9975], // Nashik, India - centered on Godavari
+        center: [73.7900, 20.0060], // Nashik - centered on Godavari near Panchavati
         zoom: 13.5,
         pitch: 45, // 3D tilt - user can adjust with right-click drag
         bearing: 0, // Start facing north - user can rotate
@@ -118,21 +118,12 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
 
         // Add river-based water layer - follows Godavari channel
         if (!mapInstance.current.getLayer('river-water')) {
-          // Initialize river polygon at normal level
-          const initialPolygon = getRiverPolygon(RIVER_PROPERTIES.riverbedElevation)
+          // Initialize river polygon at normal level using turf.buffer
+          const initialFeature = getRiverPolygon(RIVER_PROPERTIES.riverbedElevation)
           
           mapInstance.current.addSource('river-water', {
             type: 'geojson',
-            data: {
-              type: 'Feature',
-              geometry: {
-                type: 'Polygon',
-                coordinates: [initialPolygon],
-              },
-              properties: {
-                level: RIVER_PROPERTIES.riverbedElevation,
-              },
-            },
+            data: initialFeature,
           })
 
           // Main river water fill
@@ -188,7 +179,7 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [73.72, 20.01], // Gangapur Dam
+              coordinates: GODAVARI_RIVER_PATH[0], // Dam / upstream start of trace
             },
             properties: {
               name: 'Gangapur Dam - Water Source',
@@ -565,20 +556,9 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
     // Update river-based water simulation
     const riverSource = mapInstance.current.getSource('river-water')
     if (riverSource) {
-      // Get new river polygon based on current water level
-      const updatedPolygon = getRiverPolygon(waterHeight)
-      
-      riverSource.setData({
-        type: 'Feature',
-        geometry: {
-          type: 'Polygon',
-          coordinates: [updatedPolygon],
-        },
-        properties: {
-          level: waterHeight,
-          depth: heightAboveRiverbed,
-        },
-      })
+      // Get new river GeoJSON Feature based on current water level (turf.buffer)
+      const updatedFeature = getRiverPolygon(waterHeight)
+      riverSource.setData(updatedFeature)
 
       // Change water color based on danger level
       let waterColor = '#06b6d4' // Normal cyan

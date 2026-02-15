@@ -7,7 +7,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'ram-kund',
     name: 'Ram Kund',
-    coordinates: [73.7897, 19.9975], // Ram Kund ghat, Panchavati
+    coordinates: [73.7935, 20.0068], // Ram Kund ghat, on Godavari bank
     msl: 592.5,
     category: 'sacred-site',
     risk_factor: 0.95,
@@ -15,7 +15,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'kalaram-temple',
     name: 'Kalarama Temple',
-    coordinates: [73.7875, 19.9988], // Near Ram Kund
+    coordinates: [73.7914, 20.0042], // Panchavati, south of river
     msl: 598.2,
     category: 'sacred-site',
     risk_factor: 0.75,
@@ -23,7 +23,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'tapovan',
     name: 'Tapovan Area',
-    coordinates: [73.7820, 19.9950], // Low-lying area near river
+    coordinates: [73.7780, 20.0048], // Low-lying area on south bank
     msl: 591.0,
     category: 'residential',
     risk_factor: 0.98,
@@ -31,7 +31,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'nashik-city-center',
     name: 'Nashik City Center',
-    coordinates: [73.7898, 19.9975], // Central Nashik
+    coordinates: [73.7898, 19.9975], // Central Nashik, away from river
     msl: 602.3,
     category: 'commercial',
     risk_factor: 0.45,
@@ -39,7 +39,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'godavari-bridge',
     name: 'Godavari Bridge',
-    coordinates: [73.8050, 19.9965], // Main bridge over river
+    coordinates: [73.8048, 20.0038], // Bridge crossing over river
     msl: 591.8,
     category: 'infrastructure',
     risk_factor: 1.0,
@@ -47,7 +47,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'sundarnarayan-temple',
     name: 'Sundarnarayan Temple',
-    coordinates: [73.7920, 19.9995], // North of Ram Kund
+    coordinates: [73.7920, 20.0082], // North of river, higher ground
     msl: 605.8,
     category: 'sacred-site',
     risk_factor: 0.15,
@@ -55,7 +55,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'gangapur-settlement',
     name: 'Gangapur Settlement',
-    coordinates: [73.7750, 19.9940], // West of city
+    coordinates: [73.7260, 20.0055], // Near Gangapur Dam
     msl: 591.2,
     category: 'residential',
     risk_factor: 1.0,
@@ -63,7 +63,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'nashik-ghats',
     name: 'Nashik Ghats (Stepped Banks)',
-    coordinates: [73.7885, 19.9978], // Riverbank ghats
+    coordinates: [73.7950, 20.0066], // Riverbank ghats near Ramkund
     msl: 591.5,
     category: 'cultural',
     risk_factor: 0.9,
@@ -71,7 +71,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'panchvati-area',
     name: 'Panchvati (Five Trees)',
-    coordinates: [73.7850, 19.9990], // Sacred panchvati area
+    coordinates: [73.7918, 20.0055], // Sacred Panchavati area
     msl: 595.3,
     category: 'residential',
     risk_factor: 0.8,
@@ -79,7 +79,7 @@ export const NASHIK_TOPOGRAPHY = [
   {
     id: 'gangapur-dam',
     name: 'Gangapur Dam',
-    coordinates: [73.7200, 20.0100], // Upstream dam location
+    coordinates: [73.7195, 20.0072], // Dam location upstream
     msl: 615.0,
     category: 'infrastructure',
     risk_factor: 0.0,
