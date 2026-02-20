@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
 import { useAuditLog } from '../hooks/useAuditLog'
 
-export default function CommandAuditLog() {
+export default function CommandAuditLog({ className = '' }) {
   const { logs } = useAuditLog()
 
   const sorted = useMemo(() => logs, [logs])
 
   return (
-    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 backdrop-blur-md">
-      <div className="flex items-center justify-between">
+    <div className={`rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 backdrop-blur-md flex flex-col overflow-hidden ${className}`}>
+      <div className="flex-shrink-0 flex items-center justify-between">
         <div>
           <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Command Audit</p>
           <p className="text-lg font-semibold text-slate-100">Tamper-Evident Log</p>
@@ -17,7 +17,7 @@ export default function CommandAuditLog() {
           Immutable
         </span>
       </div>
-      <div className="mt-3 max-h-80 space-y-2 overflow-y-auto pr-1">
+      <div className="mt-3 flex-1 min-h-0 space-y-2 overflow-y-auto pr-1">
         {sorted.length === 0 && <p className="text-sm text-slate-400">No entries yet.</p>}
         {sorted.map((entry) => (
           <div key={entry.id} className="rounded-xl border border-slate-800/70 bg-slate-950/40 px-3 py-2">

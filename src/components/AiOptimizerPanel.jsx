@@ -150,9 +150,9 @@ export default function AiOptimizerPanel({ criticalThreshold = 594 }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+      initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
       className={`rounded-2xl border bg-slate-900/80 p-4 backdrop-blur ${cfg.border}`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -172,9 +172,9 @@ export default function AiOptimizerPanel({ criticalThreshold = 594 }) {
         <p className="text-xs uppercase tracking-wide text-slate-400">Optimal Discharge</p>
         <motion.span
           key={optimalCusecs}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: 'spring', stiffness: 240, damping: 20 }}
+          initial={{ opacity: 0, y: 6, filter: 'blur(3px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           className="font-mono text-3xl font-bold text-sky-200"
         >
           {Math.round(optimalCusecs).toLocaleString()} cusecs
@@ -183,9 +183,9 @@ export default function AiOptimizerPanel({ criticalThreshold = 594 }) {
 
       <motion.p
         key={reasoning}
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+        initial={{ opacity: 0, y: 6, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
         className="mt-3 font-mono text-sm text-slate-200"
       >
         {reasoning}

@@ -18,9 +18,9 @@ export default function FloodImpactPanel() {
   return (
     <motion.div
       className="glass-surface flex h-full max-h-full flex-col gap-4 overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+      initial={{ opacity: 0, x: 20, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div className="flex-shrink-0">
         <h3 className="text-lg font-semibold text-slate-100">Inundation Analysis</h3>
@@ -34,9 +34,9 @@ export default function FloodImpactPanel() {
           <motion.span
             key={waterSurfaceElevation}
             className="font-mono text-lg font-bold text-sky-300"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 220 }}
+            initial={{ scale: 0.9, opacity: 0.7 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'tween', duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {waterSurfaceElevation.toFixed(1)}m MSL
           </motion.span>

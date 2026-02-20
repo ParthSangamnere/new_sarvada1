@@ -20,12 +20,12 @@ export default function CitizenSentinelPage() {
   )
 
   return (
-    <div className="grid h-full grid-cols-1 gap-4 xl:grid-cols-12">
+    <div className="grid h-full min-h-0 grid-cols-1 gap-4 xl:grid-cols-12">
       <motion.section
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-        className="xl:col-span-4 flex flex-col gap-4"
+        initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+        className="xl:col-span-4 flex min-h-0 flex-col gap-4 overflow-hidden"
       >
         <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 px-4 py-4 backdrop-blur-md">
           <div className="flex items-center justify-between">
@@ -55,14 +55,14 @@ export default function CitizenSentinelPage() {
             </div>
           </div>
         </div>
-        <CitizenSOSPanel />
+        <CitizenSOSPanel className="flex-1 min-h-0" />
       </motion.section>
 
       <motion.section
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 220, damping: 22, delay: 0.05 }}
-        className="xl:col-span-8 flex min-h-[420px] flex-col overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
+        initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1], delay: 0.05 }}
+        className="xl:col-span-8 flex min-h-0 flex-col overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
       >
         <div className="flex items-center justify-between pb-3">
           <div className="flex items-center gap-2 text-sm text-slate-200">

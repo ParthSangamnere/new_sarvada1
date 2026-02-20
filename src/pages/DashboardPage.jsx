@@ -59,9 +59,9 @@ export default function DashboardPage() {
       <div className="col-span-12 md:col-span-3 flex flex-col gap-4">
       <motion.section
         layout
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 24 }}
+        initial={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         className="glass-surface flex max-h-[calc(100vh-120px)] flex-col gap-4 overflow-y-auto rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
       >
         <div className="flex items-center justify-between pb-3">
@@ -77,8 +77,8 @@ export default function DashboardPage() {
           {alerts.map((alert) => (
             <motion.div
               key={alert.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               className={`rounded-xl border px-3 py-3 ${severityClasses[alert.severity ?? 'info']}`}
             >
               <div className="flex items-center justify-between">
@@ -102,9 +102,9 @@ export default function DashboardPage() {
       {/* Separate Inundation Analysis window */}
       <motion.section
         layout
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.1 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
       >
         <FloodImpactPanel />
       </motion.section>
@@ -113,12 +113,12 @@ export default function DashboardPage() {
       {/* Center Panel - 3D Map + Hydrograph */}
       <motion.section
         layout
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.1 }}
+        initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
         className="col-span-12 md:col-span-6 flex flex-col gap-4"
       >
-        <div className="glass-surface relative flex min-h-[320px] flex-col overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md">
+        <div className="glass-surface relative flex h-[520px] flex-col overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md">
           <div className="flex items-center justify-between pb-3">
             <div>
               <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Map Center</p>
@@ -129,7 +129,7 @@ export default function DashboardPage() {
               Live Synchronization
             </div>
           </div>
-          <div className="flex flex-1 overflow-hidden rounded-xl">
+          <div className="relative flex-1 min-h-0 overflow-hidden rounded-xl">
             <MapContainer />
           </div>
         </div>
@@ -139,9 +139,9 @@ export default function DashboardPage() {
       {/* Right Panel - AI Optimizer + Multi-dam */}
       <motion.section
         layout
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.15 }}
+        initial={{ opacity: 0, x: 20, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
         className="col-span-12 md:col-span-3 flex flex-col gap-4"
       >
         <AiOptimizerPanel />

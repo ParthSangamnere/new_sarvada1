@@ -83,8 +83,8 @@ export default function SettingsPage() {
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         className="flex-shrink-0"
       >
         <h2 className="text-2xl font-bold text-slate-100">System Settings</h2>
@@ -93,9 +93,9 @@ export default function SettingsPage() {
 
       {/* Settings Container */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.4, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
         className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-2"
       >
         {/* Notifications Settings */}
@@ -334,10 +334,10 @@ export default function SettingsPage() {
       <AnimatePresence>
         {showSaveToast && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            initial={{ opacity: 0, y: 50, scale: 0.95, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: 20, scale: 0.95, filter: 'blur(4px)' }}
+            transition={{ type: 'tween', duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             className="fixed bottom-8 right-8 z-50 flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/20 px-5 py-3.5 shadow-2xl backdrop-blur-md"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500">

@@ -10,7 +10,7 @@ export function AuditLogProvider({ children }) {
 
   const addLog = (entry) => {
     setLogs((prev) => {
-      const id = `GS-2026-${pad(counter)}`
+      const id = `SRVD-2026-${pad(counter)}`
       const next = {
         id,
         timestamp: new Date().toISOString(),

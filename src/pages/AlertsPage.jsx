@@ -134,8 +134,8 @@ export default function AlertsPage() {
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         className="flex flex-shrink-0 items-start justify-between"
       >
         <div>
@@ -150,9 +150,9 @@ export default function AlertsPage() {
 
       {/* Filter Tabs */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
         className="flex flex-shrink-0 gap-2"
       >
         {['all', 'critical', 'warning', 'info'].map((filterType) => (
@@ -177,9 +177,9 @@ export default function AlertsPage() {
 
       {/* Summary Cards */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.15 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
         className="grid flex-shrink-0 grid-cols-1 gap-3 md:grid-cols-3"
       >
         <div className="rounded-xl border border-rose-700/40 bg-rose-900/20 p-3">
@@ -209,18 +209,18 @@ export default function AlertsPage() {
 
       {/* Alerts List */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
         className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-slate-800/70 bg-slate-900/60 p-4 backdrop-blur-md"
       >
         <div className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-2">
           {filteredAlerts.map((alert, index) => (
             <motion.div
               key={alert.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.25 + index * 0.03 }}
+              initial={{ opacity: 0, x: -20, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.25 + index * 0.03 }}
               className={`rounded-lg border p-4 transition-all ${getAlertStyle(alert.type)}`}
             >
               <div className="flex items-start justify-between gap-3">

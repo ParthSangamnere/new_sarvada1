@@ -30,20 +30,20 @@ function App() {
           {!isEntered ? (
             <motion.div
               key="landing"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, filter: 'blur(6px)' }}
+              transition={{ type: 'tween', duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <LandingPage onEnter={() => setIsEntered(true)} />
             </motion.div>
           ) : (
             <motion.div
               key="dashboard"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, filter: 'blur(6px)' }}
+              transition={{ type: 'tween', duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
               className="h-full"
             >
               <MainLayout navItems={navItems} systemStatus="LIVE" damLevel={primaryDam?.storagePct ?? 0} />

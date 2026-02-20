@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import { useEffect, useMemo, useState } from 'react'
 import { Activity, LifeBuoy, FileText, AlertTriangle } from 'lucide-react'
@@ -68,105 +68,149 @@ export default function TopHeader({ systemStatus: systemStatusProp = 'LIVE', dam
   return (
     <motion.header
       layout
-      className="glass-surface grid-noise relative z-10 flex items-center justify-between rounded-2xl border border-slate-800/80 bg-slate-900/60 px-5 py-4 backdrop-blur-md"
-      initial={{ opacity: 0, y: -12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+      className="glass-surface grid-noise relative z-10 flex flex-wrap items-center gap-3 rounded-2xl border border-slate-800/80 bg-slate-900/60 px-5 py-3 backdrop-blur-md"
+      initial={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'tween', duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >
+      {/* Left — Brand */}
       <div className="flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/80 to-cyan-400/60 text-lg font-bold text-slate-950 shadow-neon">
-          GS
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/80 to-cyan-400/60 shadow-neon">
+          <span className="text-[15px] font-extrabold tracking-tight text-slate-950">S</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Godavari Sentinel</span>
-          <div className="flex items-center gap-2 text-xl font-semibold text-slate-50">
-            <Activity size={18} className="text-sky-300" />
-            War-Room Dashboard
+          <span className="text-[13px] font-bold tracking-[0.18em] text-slate-50">SARVADA</span>
+          <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-slate-400">
+            <Activity size={13} className="text-sky-400" />
+            Command Center
           </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 text-sm">
-        <div className="flex items-center gap-2 rounded-xl border border-sky-500/30 bg-gradient-to-r from-slate-900/80 to-slate-800/60 px-4 py-2.5 shadow-lg">
-          <span className="text-xs font-medium uppercase tracking-wider text-slate-300">Current Time</span>
-          <span className="font-mono text-base font-bold text-sky-300">{timeString}</span>
+      {/* Center — Simulation Mode banner (only visible during simulation) */}
+      {isSimulating && (
+        <div className="mx-auto flex items-center gap-2 rounded-xl border border-cyan-500/50 bg-cyan-500/10 px-4 py-2 text-cyan-100 shadow-neon">
+          <AlertTriangle size={14} className="text-cyan-200" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">Simulation Mode</span>
         </div>
-        {isSimulating && (
-          <div className="flex items-center gap-2 rounded-xl border border-cyan-500/50 bg-cyan-500/10 px-3 py-2 text-cyan-100 shadow-neon">
-            <AlertTriangle size={14} className="text-cyan-200" />
-            <span className="text-[11px] uppercase tracking-[0.18em]">Simulation Mode</span>
+      )}
+
+      {/* Right — Scrolling ticker */}
+      <div className="ml-auto flex-1 min-w-0 overflow-hidden relative" style={{ maskImage: 'linear-gradient(to right, transparent, black 3%, black 97%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 3%, black 97%, transparent)' }}>
+        <div className="ticker-track flex w-max items-center gap-3 text-sm">
+          {/* First copy */}
+          <div className="flex items-center gap-2 rounded-xl border border-sky-400/60 bg-gradient-to-r from-sky-950/80 to-slate-800/70 px-3 py-2 shadow-lg shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-sky-100">Time</span>
+            <span className="font-mono text-sm font-extrabold text-white">{timeString}</span>
           </div>
-        )}
-        <div className="flex items-center gap-2 rounded-xl border border-slate-700/50 bg-slate-900/40 px-3 py-2 backdrop-blur-sm">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">Dam Level</span>
-          <span className="font-mono text-sm font-semibold text-slate-400">{damLevel}%</span>
-        </div>
-        <div className="flex items-center gap-2 rounded-xl border border-sky-700/50 bg-slate-900/40 px-3 py-2 backdrop-blur-sm">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">Catchment Rain</span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={isCatchmentLoading ? 'loading-rain' : rainfall}
-              className="font-mono text-sm font-semibold text-sky-300"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 18 }}
-            >
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-slate-500/70 bg-slate-800/70 px-3 py-2 shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200">Dam Level</span>
+            <span className="font-mono text-sm font-extrabold text-white">{damLevel}%</span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-sky-500/60 bg-slate-800/70 px-3 py-2 shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200">Catchment Rain</span>
+            <span className="font-mono text-sm font-extrabold text-sky-100">
               {isCatchmentLoading ? 'Loading…' : `${rainfall.toFixed(1)} mm/hr`}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-        <button
-          type="button"
-          onClick={cycleRisk}
-          className="flex items-center gap-2 rounded-xl border border-slate-700/40 bg-slate-900/30 px-3 py-2 text-left backdrop-blur-sm transition hover:border-slate-600/60"
-        >
-          <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">System Status</span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={statusLabel}
-              className={`inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-semibold uppercase tracking-wide ${statusClasses} pulse-glow`}
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-            >
+            </span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <button
+            type="button"
+            onClick={cycleRisk}
+            className="flex items-center gap-2 rounded-xl border border-slate-500/60 bg-slate-800/60 px-3 py-2 text-left transition hover:border-slate-400/70 shrink-0"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200">System Status</span>
+            <span className={`inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-bold uppercase tracking-wide ${statusClasses} pulse-glow`}>
               {statusLabel}
-            </motion.span>
-          </AnimatePresence>
-        </button>
-        <div className="flex items-center gap-2 rounded-xl border border-sky-500/40 bg-sky-500/10 px-3 py-2 text-sky-200 shadow-neon">
-          <span className="text-[11px] uppercase tracking-[0.18em] text-sky-200/80">Predicted Inflow</span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={isCatchmentLoading ? 'loading-inflow' : inflow}
-              className="font-mono font-bold"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 18 }}
-            >
+            </span>
+          </button>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-sky-400/60 bg-sky-500/20 px-3 py-2 text-sky-50 shadow-neon shrink-0">
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-sky-50">Predicted Inflow</span>
+            <span className="font-mono font-extrabold text-white">
               {isCatchmentLoading ? '—' : `${Math.round(inflow).toLocaleString()} cusecs`}
-            </motion.span>
-          </AnimatePresence>
+            </span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] shrink-0 ${telemetryDegraded ? 'border-amber-400/70 bg-amber-500/20 text-amber-50' : 'border-emerald-400/60 bg-emerald-500/15 text-emerald-100'}`}>
+            {telemetryDegraded ? <AlertTriangle size={14} className="text-amber-200" /> : <AlertTriangle size={14} className="text-emerald-200" />}
+            {telemetryDegraded ? 'Data Integrity at Risk' : 'Telemetry Nominal'}
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-rose-400/50 bg-rose-500/15 px-3 py-2 text-rose-50 shadow-neon shrink-0">
+            <LifeBuoy size={16} className="text-rose-200" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em]">SOS</span>
+            <span className="font-mono text-sm font-extrabold text-white">{activeSos}</span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <button
+            type="button"
+            onClick={() => onOpenSitrep?.()}
+            className="flex items-center gap-2 rounded-lg border border-blue-400/70 bg-blue-600/25 px-3 py-1.5 text-left text-blue-100 shadow-[0_0_20px_rgba(59,130,246,0.35)] transition hover:bg-blue-600/35 hover:text-white shrink-0"
+          >
+            <FileText size={16} className="text-blue-200" />
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.22em]">Generate Sitrep</span>
+          </button>
+          <span className="w-12 shrink-0" />
+          {/* Duplicate copy for seamless loop */}
+          <div className="flex items-center gap-2 rounded-xl border border-sky-400/60 bg-gradient-to-r from-sky-950/80 to-slate-800/70 px-3 py-2 shadow-lg shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-sky-100">Time</span>
+            <span className="font-mono text-sm font-extrabold text-white">{timeString}</span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-slate-500/70 bg-slate-800/70 px-3 py-2 shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200">Dam Level</span>
+            <span className="font-mono text-sm font-extrabold text-white">{damLevel}%</span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-sky-500/60 bg-slate-800/70 px-3 py-2 shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200">Catchment Rain</span>
+            <span className="font-mono text-sm font-extrabold text-sky-100">
+              {isCatchmentLoading ? 'Loading…' : `${rainfall.toFixed(1)} mm/hr`}
+            </span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <button
+            type="button"
+            onClick={cycleRisk}
+            className="flex items-center gap-2 rounded-xl border border-slate-500/60 bg-slate-800/60 px-3 py-2 text-left transition hover:border-slate-400/70 shrink-0"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-200">System Status</span>
+            <span className={`inline-flex items-center gap-2 rounded-lg px-2 py-1 text-xs font-bold uppercase tracking-wide ${statusClasses} pulse-glow`}>
+              {statusLabel}
+            </span>
+          </button>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-sky-400/60 bg-sky-500/20 px-3 py-2 text-sky-50 shadow-neon shrink-0">
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-sky-50">Predicted Inflow</span>
+            <span className="font-mono font-extrabold text-white">
+              {isCatchmentLoading ? '—' : `${Math.round(inflow).toLocaleString()} cusecs`}
+            </span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] shrink-0 ${telemetryDegraded ? 'border-amber-400/70 bg-amber-500/20 text-amber-50' : 'border-emerald-400/60 bg-emerald-500/15 text-emerald-100'}`}>
+            {telemetryDegraded ? <AlertTriangle size={14} className="text-amber-200" /> : <AlertTriangle size={14} className="text-emerald-200" />}
+            {telemetryDegraded ? 'Data Integrity at Risk' : 'Telemetry Nominal'}
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <div className="flex items-center gap-2 rounded-xl border border-rose-400/50 bg-rose-500/15 px-3 py-2 text-rose-50 shadow-neon shrink-0">
+            <LifeBuoy size={16} className="text-rose-200" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.18em]">SOS</span>
+            <span className="font-mono text-sm font-extrabold text-white">{activeSos}</span>
+          </div>
+          <span className="text-slate-500 shrink-0">•</span>
+          <button
+            type="button"
+            onClick={() => onOpenSitrep?.()}
+            className="flex items-center gap-2 rounded-lg border border-blue-400/70 bg-blue-600/25 px-3 py-1.5 text-left text-blue-100 shadow-[0_0_20px_rgba(59,130,246,0.35)] transition hover:bg-blue-600/35 hover:text-white shrink-0"
+          >
+            <FileText size={16} className="text-blue-200" />
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.22em]">Generate Sitrep</span>
+          </button>
+          <span className="w-12 shrink-0" />
         </div>
-        <div className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${telemetryDegraded ? 'border-amber-500/60 bg-amber-500/10 text-amber-100 animate-pulse' : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-200'}`}>
-          {telemetryDegraded ? <AlertTriangle size={14} className="text-amber-300" /> : <AlertTriangle size={14} className="text-emerald-300" />}
-          {telemetryDegraded ? 'Data Integrity at Risk' : 'Telemetry Nominal'}
-        </div>
-        <div className="flex items-center gap-2 rounded-xl border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-100 shadow-neon">
-          <LifeBuoy size={16} className="text-rose-300" />
-          <span className="text-[11px] uppercase tracking-[0.18em]">SOS</span>
-          <span className="font-mono text-sm font-bold">{activeSos}</span>
-        </div>
-        <button
-          type="button"
-          onClick={() => onOpenSitrep?.()}
-          className="flex items-center gap-2 rounded-lg border border-blue-500/60 bg-blue-600/15 px-3 py-1.5 text-left text-blue-200 shadow-[0_0_20px_rgba(59,130,246,0.25)] transition hover:bg-blue-600/25 hover:text-white"
-        >
-          <FileText size={16} className="text-blue-300" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.22em]">Generate Sitrep</span>
-        </button>
       </div>
     </motion.header>
   )
