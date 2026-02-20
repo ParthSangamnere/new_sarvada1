@@ -170,7 +170,7 @@ export default function SimulationController() {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-5 z-40 flex justify-center px-4">
+    <div className="pointer-events-none sticky bottom-0 inset-x-0 z-40 flex justify-center px-4 pb-5 pt-3">
       <AnimatePresence mode="wait">
         <motion.div
           key={collapsed ? 'collapsed' : 'expanded'}
