@@ -52,7 +52,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <>
+    <div className="relative">
       <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-12">
       {/* Left Panel - Alerts Feed */}
       {/* Left Column - Alerts + Separate Analysis */}
@@ -149,7 +149,7 @@ export default function DashboardPage() {
       </motion.section>
       </div>
       <SimulationController />
-    </>
+    </div>
   )
 }
 
