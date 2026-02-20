@@ -9,7 +9,7 @@ const acronymItems = [
   { key: 'V', label: 'Vulnerability', desc: 'Digital twin exposure modeling' },
   { key: 'A', label: 'Analysis', desc: 'AI-driven mitigation playbooks' },
   { key: 'D', label: 'Dam', desc: 'Reservoir intelligence and discharge' },
-  { key: 'A', label: 'Admissions', desc: 'Official governance-grade reporting' },
+  { key: 'A', label: 'Authority', desc: 'Official governance-grade reporting' },
 ]
 
 export default function LandingPage({ onEnter }) {
@@ -21,36 +21,36 @@ export default function LandingPage({ onEnter }) {
 
       <div className="relative z-10 w-full max-w-5xl px-6 py-10 text-center">
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ type: 'tween', duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-sky-500/40 bg-sky-500/10 shadow-[0_0_30px_rgba(56,189,248,0.35)]"
         >
           <Shield className="text-sky-300" size={26} />
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ delay: 0.1, type: 'tween', duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-6 text-5xl font-extrabold tracking-tight text-slate-50 sm:text-6xl"
         >
           SARVADA
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ delay: 0.2, type: 'tween', duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-3 font-mono text-sm uppercase tracking-[0.24em] text-sky-200/80"
         >
-          System for Alert, Relief, and Vulnerability Analysis
+          System for Alert, Relief, Vulnerability Analysis, Dam-management & Authority
         </motion.p>
 
         <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ delay: 0.3, type: 'tween', duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-4 text-lg text-slate-300 sm:text-xl"
         >
           Digital Twin for Nashik District — hydrology, infrastructure, and citizen signals fused into one operational picture.
@@ -81,9 +81,9 @@ export default function LandingPage({ onEnter }) {
         </div>
 
         <motion.button
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.5, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ delay: 0.35, type: 'tween', duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           type="button"
           onClick={onEnter}
           className="group relative mx-auto mt-10 flex items-center justify-center gap-3 rounded-2xl border border-sky-500/70 bg-sky-600/20 px-6 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-sky-100 shadow-[0_0_26px_rgba(56,189,248,0.35)] transition duration-200 hover:shadow-[0_0_36px_rgba(56,189,248,0.6)]"
@@ -95,12 +95,12 @@ export default function LandingPage({ onEnter }) {
         </motion.button>
 
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ delay: 0.4, type: 'tween', duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-8 text-xs uppercase tracking-[0.24em] text-slate-500"
         >
-          Authorized Access Only | Nashik District Disaster Management Authority
+          SARVADA v1.0 | Nashik District Disaster Management Authority | Authorized Access Only
         </motion.div>
       </div>
     </div>

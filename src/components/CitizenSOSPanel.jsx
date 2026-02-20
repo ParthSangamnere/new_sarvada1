@@ -4,7 +4,7 @@ import { Activity, Ambulance, Check } from 'lucide-react'
 import { useFloodRisk } from '../state/FloodRiskContext'
 import { useAuditLog } from '../hooks/useAuditLog'
 
-export default function CitizenSOSPanel() {
+export default function CitizenSOSPanel({ className = '' }) {
   const { waterSurfaceElevation, citizenReports, setCitizenReports } = useFloodRisk()
   const { addLog } = useAuditLog()
 
@@ -47,12 +47,12 @@ export default function CitizenSOSPanel() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-      className="rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 backdrop-blur-md"
+      initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+      className={`rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 backdrop-blur-md flex flex-col overflow-hidden ${className}`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex-shrink-0 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Activity size={18} className="text-sky-300" />
           <div>
@@ -65,7 +65,7 @@ export default function CitizenSOSPanel() {
         </span>
       </div>
 
-      <div className="mt-3 space-y-2 max-h-80 overflow-y-auto pr-1">
+      <div className="mt-3 flex-1 min-h-0 space-y-2 overflow-y-auto pr-1">
         {reports.map((report) => {
           const verifiedBadge = report.verified ? 'MODEL VERIFIED' : 'UNVERIFIED'
           const verifiedClass = report.verified
@@ -80,8 +80,8 @@ export default function CitizenSOSPanel() {
           return (
             <motion.div
               key={report.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 8, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               className={`rounded-xl border-l-4 px-3 py-3 ${report.verified ? 'border-blue-500/70 bg-slate-900/60' : 'border-slate-700/80 bg-slate-950/60'} `}
               onClick={() => triggerFlyTo(report)}
             >

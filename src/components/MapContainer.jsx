@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import PropTypes from 'prop-types'
@@ -39,9 +39,17 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
   const mapContainer = useRef(null)
   const mapInstance = useRef(null)
   const sosMarkersRef = useRef([])
+  const resizeObserver = useRef(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const { waterSurfaceElevation, floodImpacts, citizenReports } = useFloodRisk()
+
+  // Trigger map resize when container dimensions change
+  const handleResize = useCallback(() => {
+    if (mapInstance.current) {
+      mapInstance.current.resize()
+    }
+  }, [])
 
   useEffect(() => {
     const handler = (e) => {
@@ -106,6 +114,9 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
 
       // Resolve loading state when map is fully initialized
       mapInstance.current.on('load', () => {
+        // Force a resize to ensure the canvas matches the container
+        mapInstance.current.resize()
+
         // Add terrain source for elevation-based query
         if (!mapInstance.current.getSource('mapbox-dem')) {
           mapInstance.current.addSource('mapbox-dem', {
@@ -468,12 +479,33 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
 
     // Cleanup on unmount
     return () => {
+      if (resizeObserver.current) {
+        resizeObserver.current.disconnect()
+        resizeObserver.current = null
+      }
       if (mapInstance.current) {
         mapInstance.current.remove()
         mapInstance.current = null
       }
     }
   }, [mapStyle])
+
+  // Observe container resize to keep map in sync with layout changes
+  useEffect(() => {
+    const container = mapContainer.current
+    if (!container) return
+
+    resizeObserver.current = new ResizeObserver(() => {
+      handleResize()
+    })
+    resizeObserver.current.observe(container)
+
+    return () => {
+      if (resizeObserver.current) {
+        resizeObserver.current.disconnect()
+      }
+    }
+  }, [handleResize])
 
   // Update inundation visualization when water elevation changes
   useEffect(() => {
@@ -660,8 +692,8 @@ export default function MapContainer({ mapStyle = 'satellite-streets-v12', enabl
   }
 
   return (
-    <div className="relative w-full overflow-hidden rounded-xl border border-slate-800/70 bg-slate-950 h-[420px] md:h-[520px]">
-      <div ref={mapContainer} className="h-full w-full" />
+    <div className="relative w-full h-full min-h-[420px] overflow-hidden rounded-xl border border-slate-800/70 bg-slate-950">
+      <div ref={mapContainer} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-3">

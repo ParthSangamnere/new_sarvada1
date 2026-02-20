@@ -113,10 +113,10 @@ export default function StructuralImpactReport() {
             return (
               <motion.div
                 key={site.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+                initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -10, filter: 'blur(3px)' }}
+                transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
                 className="rounded-lg border border-slate-800/70 bg-slate-900/60 p-3"
               >
                 <div className="flex items-start justify-between gap-3">

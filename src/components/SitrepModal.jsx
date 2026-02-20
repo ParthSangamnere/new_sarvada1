@@ -111,22 +111,25 @@ export default function SitrepModal({ open, onClose }) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-start justify-center bg-black/70 backdrop-blur-sm no-print"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm no-print"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          onClick={onClose}
         >
           <motion.div
-            initial={{ y: -30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-            className="mt-10 w-[min(1080px,96vw)] overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 shadow-2xl backdrop-blur-md sitrep-print"
+            initial={{ y: -20, opacity: 0, scale: 0.97, filter: 'blur(4px)' }}
+            animate={{ y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ y: -15, opacity: 0, scale: 0.97, filter: 'blur(4px)' }}
+            transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            className="my-4 flex w-[min(1080px,96vw)] max-h-[calc(100vh-2rem)] flex-col overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 shadow-2xl backdrop-blur-md sitrep-print"
           >
-            <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 bg-slate-900/80">
+            <div className="flex-shrink-0 flex items-center justify-between border-b border-slate-800 px-6 py-3 bg-slate-900/80">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Executive Sitrep</p>
-                <p className="text-lg font-semibold text-slate-100">Government of Maharashtra | Nashik District Disaster Management Authority</p>
+                <p className="text-base font-semibold text-slate-100">Government of Maharashtra | Nashik District Disaster Management Authority</p>
               </div>
               <button
                 type="button"
@@ -137,9 +140,9 @@ export default function SitrepModal({ open, onClose }) {
                 <X size={16} />
               </button>
             </div>
-            <div className="grid grid-cols-1 gap-6 px-6 py-5 md:grid-cols-3">
-              <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4 md:col-span-2">
-                <div className="rounded-xl bg-white p-6 text-slate-900 shadow-inner sitrep-document">
+            <div className="flex-1 overflow-y-auto min-h-0 grid grid-cols-1 gap-4 px-5 py-4 md:grid-cols-3">
+              <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3 md:col-span-2">
+                <div className="rounded-xl bg-white p-4 text-slate-900 shadow-inner sitrep-document">
                   <div className="flex items-center justify-between text-[11px] font-semibold text-slate-700">
                     <span>Government of Maharashtra | Nashik District Disaster Management Authority</span>
                     <span>{timestamp} (IST)</span>
@@ -147,38 +150,38 @@ export default function SitrepModal({ open, onClose }) {
                   <div className="mt-2 flex items-center justify-between">
                     <div>
                       <p className="text-xs uppercase tracking-[0.22em] text-slate-700">Official Situation Report (SITREP)</p>
-                      <p className="text-xl font-bold text-slate-900">Incident ID: {incidentId}</p>
+                      <p className="text-lg font-bold text-slate-900">Incident ID: {incidentId}</p>
                     </div>
-                    <div className="rounded-lg border border-slate-300 px-3 py-2 text-right text-xs">
+                    <div className="rounded-lg border border-slate-300 px-3 py-1.5 text-right text-xs">
                       <p className="font-semibold text-slate-700">Status</p>
                       <p className="font-mono text-sm text-slate-900">{metrics.isUpstreamCritical ? 'CRITICAL' : 'ACTIVE'}</p>
                     </div>
                   </div>
 
-                  <div className="mt-4 grid grid-cols-1 gap-3 text-sm md:grid-cols-4">
-                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">Rainfall</p>
-                      <p className="text-lg font-semibold text-slate-900">{metrics.rainfall.toFixed(1)} mm/hr</p>
-                      <p className="text-[11px] text-slate-500">Catchment (IST)</p>
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-sm md:grid-cols-4">
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-slate-500">Rainfall</p>
+                      <p className="text-base font-semibold text-slate-900">{metrics.rainfall.toFixed(1)} mm/hr</p>
+                      <p className="text-[10px] text-slate-500">Catchment (IST)</p>
                     </div>
-                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">WSE</p>
-                      <p className="text-lg font-semibold text-slate-900">{waterSurfaceElevation.toFixed(2)} m MSL</p>
-                      <p className="text-[11px] text-slate-500">Datum: Riverbed</p>
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-slate-500">WSE</p>
+                      <p className="text-base font-semibold text-slate-900">{waterSurfaceElevation.toFixed(2)} m MSL</p>
+                      <p className="text-[10px] text-slate-500">Datum: Riverbed</p>
                     </div>
-                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">Discharge</p>
-                      <p className="text-lg font-semibold text-slate-900">{Math.round(damCusecs).toLocaleString()} cusecs</p>
-                      <p className="text-[11px] text-slate-500">Gangapur gates</p>
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-slate-500">Discharge</p>
+                      <p className="text-base font-semibold text-slate-900">{Math.round(damCusecs).toLocaleString()} cusecs</p>
+                      <p className="text-[10px] text-slate-500">Gangapur gates</p>
                     </div>
-                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500">Upstream Critical</p>
-                      <p className="text-lg font-semibold text-slate-900">{metrics.isUpstreamCritical ? 'Yes' : 'No'}</p>
-                      <p className="text-[11px] text-slate-500">Auto escalation</p>
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-slate-500">Upstream Critical</p>
+                      <p className="text-base font-semibold text-slate-900">{metrics.isUpstreamCritical ? 'Yes' : 'No'}</p>
+                      <p className="text-[10px] text-slate-500">Auto escalation</p>
                     </div>
                   </div>
 
-                  <div className="mt-5 space-y-4 text-sm text-slate-900">
+                  <div className="mt-3 space-y-3 text-sm text-slate-900">
                     <section>
                       <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-slate-700">I. Hydrological Summary</p>
                       <ul className="ml-4 list-disc">
@@ -213,36 +216,36 @@ export default function SitrepModal({ open, onClose }) {
                       <p className="ml-1 text-xs text-slate-500">Verification cadence: 15-minute telemetry + citizen callbacks</p>
                     </section>
 
-                    <section className="pt-2">
+                    <section className="pt-1">
                       <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-slate-700">Digital Signature</p>
-                      <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-                        <div className="rounded-lg border border-slate-300 bg-white px-3 py-3 text-xs text-slate-700">
+                      <div className="mt-2 grid grid-cols-2 gap-2">
+                        <div className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-700">
                           <p className="font-semibold text-slate-800">Authorized Signatory</p>
-                          <div className="mt-8 border-t border-slate-300 pt-2">District Collector, Nashik</div>
-                          <p className="text-[11px] text-slate-500">Seal / e-Sign</p>
+                          <div className="mt-4 border-t border-slate-300 pt-1">District Collector, Nashik</div>
+                          <p className="text-[10px] text-slate-500">Seal / e-Sign</p>
                         </div>
-                        <div className="rounded-lg border border-slate-300 bg-white px-3 py-3 text-xs text-slate-700">
+                        <div className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-700">
                           <p className="font-semibold text-slate-800">Incident Commander</p>
-                          <div className="mt-8 border-t border-slate-300 pt-2">NDRF Lead, Godavari Sector</div>
-                          <p className="text-[11px] text-slate-500">Seal / e-Sign</p>
+                          <div className="mt-4 border-t border-slate-300 pt-1">NDRF Lead, Godavari Sector</div>
+                          <p className="text-[10px] text-slate-500">Seal / e-Sign</p>
                         </div>
                       </div>
                     </section>
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-xl border border-slate-200 bg-white/95 p-3 text-slate-800 shadow-inner">
+                <div className="mt-3 rounded-xl border border-slate-200 bg-white/95 p-2.5 text-slate-800 shadow-inner">
                   <div className="flex items-center justify-between text-xs text-slate-500">
                     <span>Plain-text SITREP</span>
                     <span>{incidentId}</span>
                   </div>
-                  <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap rounded-lg bg-slate-100/80 p-3 text-xs font-mono text-slate-800">
+                  <pre className="mt-1.5 max-h-36 overflow-auto whitespace-pre-wrap rounded-lg bg-slate-100/80 p-2.5 text-[11px] font-mono text-slate-800">
 {generateReport()}
                   </pre>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3 rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+              <div className="flex flex-col gap-2.5 rounded-xl border border-slate-800 bg-slate-950/70 p-3">
                 <p className="text-sm font-semibold text-slate-200">Actions</p>
                 <button
                   type="button"
@@ -281,7 +284,7 @@ export default function SitrepModal({ open, onClose }) {
               </div>
             </div>
 
-            <div className="border-t border-slate-800 bg-slate-900/80 px-6 py-3 text-xs text-slate-400">
+            <div className="flex-shrink-0 border-t border-slate-800 bg-slate-900/80 px-5 py-2 text-xs text-slate-400">
               For immediate administrative distribution • SARVADA War-Room Dashboard
             </div>
           </motion.div>

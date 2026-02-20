@@ -24,6 +24,7 @@ import { useAuditLog } from '../hooks/useAuditLog'
 export default function MainLayout({ navItems, systemStatus, damLevel }) {
   const [activeNav, setActiveNav] = useState(navItems?.[0])
   const [showSitrep, setShowSitrep] = useState(false)
+  const [sidebarExpanded, setSidebarExpanded] = useState(false)
   const { theme } = useFloodRisk()
   const { addLog } = useAuditLog()
 
@@ -31,9 +32,11 @@ export default function MainLayout({ navItems, systemStatus, damLevel }) {
     if (item.id === 'sitrep') {
       setShowSitrep(true)
       addLog({ action: 'SITREP Generated', value: 'Executive Situation Report opened', user: 'ADMIN-01' })
+      setSidebarExpanded(false)
       return
     }
     setActiveNav(item)
+    setSidebarExpanded(false)
   }
 
   useEffect(() => {
@@ -71,9 +74,15 @@ export default function MainLayout({ navItems, systemStatus, damLevel }) {
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-transparent text-slate-100">
-      <Sidebar activeItem={activeNav} items={navItems} onSelect={handleNavSelect} />
+      <Sidebar
+        activeItem={activeNav}
+        items={navItems}
+        onSelect={handleNavSelect}
+        expanded={sidebarExpanded}
+        onToggleExpand={() => setSidebarExpanded((prev) => !prev)}
+      />
       <div className="relative flex flex-1 flex-col overflow-hidden">
-        <div className="flex-shrink-0 px-6 pt-5 pb-3">
+        <div className="flex-shrink-0 px-6 pt-2 pb-2">
           <TopHeader systemStatus={systemStatus} damLevel={damLevel} onOpenSitrep={() => setShowSitrep(true)} />
         </div>
 
@@ -81,10 +90,10 @@ export default function MainLayout({ navItems, systemStatus, damLevel }) {
           <motion.main
             key={activeNav?.id}
             className="flex-1 overflow-y-auto px-6 pb-6"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 24 }}
+            initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+            transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {renderPage()}
           </motion.main>

@@ -99,8 +99,8 @@ export default function PerformancePage() {
     <div className="flex h-full flex-col gap-4 overflow-hidden">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         className="flex-shrink-0"
       >
         <h2 className="text-2xl font-bold text-slate-100">Performance Analytics</h2>
@@ -109,9 +109,9 @@ export default function PerformancePage() {
 
       {/* Metrics Grid */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
         className="grid flex-shrink-0 grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
       >
         {systemMetrics.map((metric, index) => {
@@ -119,9 +119,9 @@ export default function PerformancePage() {
           return (
             <motion.div
               key={metric.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 + index * 0.05 }}
+              initial={{ opacity: 0, scale: 0.95, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 + index * 0.05 }}
               className={`rounded-xl border p-4 ${getStatusColor(metric.status)}`}
             >
               <div className="flex items-start justify-between">
@@ -142,9 +142,9 @@ export default function PerformancePage() {
 
       {/* Current System State */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
         className="grid flex-shrink-0 grid-cols-1 gap-4 md:grid-cols-3"
       >
         <div className="rounded-xl border border-slate-800/70 bg-slate-900/60 p-4 backdrop-blur-md">
@@ -170,9 +170,9 @@ export default function PerformancePage() {
 
       {/* Meteorological Telemetry */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.25 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.25 }}
         className="grid flex-shrink-0 grid-cols-1 gap-4 lg:grid-cols-3"
       >
         <div className="rounded-xl border border-slate-800/70 bg-slate-900/60 p-4 backdrop-blur-md">
@@ -188,10 +188,10 @@ export default function PerformancePage() {
           <div className="mt-3 flex items-baseline gap-2">
             <motion.span
               key={isCatchmentLoading ? 'rain-loading' : rainfall}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 6, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -6 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 20 }}
+              transition={{ type: 'tween', duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="font-mono text-3xl font-bold text-sky-200"
             >
               {isCatchmentLoading ? '—' : rainfall.toFixed(1)}
@@ -215,10 +215,10 @@ export default function PerformancePage() {
           <div className="mt-3 flex items-baseline gap-2">
             <motion.span
               key={isCatchmentLoading ? 'inflow-loading' : inflow}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 6, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -6 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 20 }}
+              transition={{ type: 'tween', duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="font-mono text-3xl font-bold text-emerald-200"
             >
               {isCatchmentLoading ? '—' : Math.round(inflow).toLocaleString()}
@@ -261,9 +261,9 @@ export default function PerformancePage() {
 
       {/* Recent Activity Log */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
+        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
         className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-slate-800/70 bg-slate-900/60 p-4 backdrop-blur-md"
       >
         <div className="flex-shrink-0 pb-3">
@@ -274,9 +274,9 @@ export default function PerformancePage() {
           {recentEvents.map((event, index) => (
             <motion.div
               key={event.id}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 + index * 0.05 }}
+              initial={{ opacity: 0, x: -10, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              transition={{ type: 'tween', duration: 0.3, ease: [0.25, 0.1, 0.25, 1], delay: 0.4 + index * 0.05 }}
               className="flex items-start gap-3 rounded-lg border border-slate-800/50 bg-slate-950/40 p-3"
             >
               <div className="flex-shrink-0 pt-0.5">{getEventIcon(event.type)}</div>

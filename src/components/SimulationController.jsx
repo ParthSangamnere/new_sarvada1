@@ -174,10 +174,10 @@ export default function SimulationController() {
       <AnimatePresence mode="wait">
         <motion.div
           key={collapsed ? 'collapsed' : 'expanded'}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+          initial={{ opacity: 0, y: 20, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+          transition={{ type: 'tween', duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
           className="pointer-events-auto flex w-full max-w-5xl flex-col rounded-2xl border border-cyan-500/40 bg-slate-900/80 text-sm text-slate-100 shadow-[0_10px_60px_rgba(14,165,233,0.25)] backdrop-blur-md"
         >
           {/* Collapsed header bar — always visible */}
@@ -211,7 +211,7 @@ export default function SimulationController() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex flex-col gap-3 px-4 pb-4"
             >
               <div className="flex flex-wrap items-center justify-end gap-2">

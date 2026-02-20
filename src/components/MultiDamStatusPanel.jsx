@@ -11,9 +11,9 @@ const getRiskClasses = (pct) => {
 export default function MultiDamStatusPanel() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+      initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
       className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
     >
       <div className="flex items-center justify-between">
@@ -35,9 +35,9 @@ export default function MultiDamStatusPanel() {
           return (
             <motion.div
               key={dam.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: 'spring', stiffness: 240, damping: 20 }}
+              initial={{ opacity: 0, y: 8, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ type: 'tween', duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
               className="rounded-xl border border-slate-800/70 bg-slate-950/40 px-3 py-3"
             >
               <div className="flex items-center justify-between">

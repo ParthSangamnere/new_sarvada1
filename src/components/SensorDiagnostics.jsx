@@ -9,12 +9,12 @@ const statusColor = (status) => {
 
 const barWidth = (value) => `${Math.round(Math.min(Math.max(value, 0), 1) * 100)}%`
 
-export default function SensorDiagnostics() {
+export default function SensorDiagnostics({ className = '' }) {
   const anyUncertain = SENSOR_NETWORK.some((s) => s.status !== 'online')
 
   return (
-    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 backdrop-blur-md">
-      <div className="flex items-center justify-between">
+    <div className={`rounded-2xl border border-slate-800/80 bg-slate-900/80 p-4 backdrop-blur-md flex flex-col overflow-hidden ${className}`}>
+      <div className="flex-shrink-0 flex items-center justify-between">
         <div>
           <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Telemetry</p>
           <p className="text-lg font-semibold text-slate-100">Sensor Health Grid</p>
@@ -26,7 +26,7 @@ export default function SensorDiagnostics() {
         )}
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+      <div className="mt-4 flex-1 min-h-0 overflow-y-auto grid grid-cols-1 gap-3 md:grid-cols-2 content-start">
         {SENSOR_NETWORK.map((sensor) => (
           <div key={sensor.id} className="rounded-xl border border-slate-800/70 bg-slate-950/50 p-3 shadow-[0_0_15px_rgba(15,23,42,0.5)]">
             <div className="flex items-center justify-between">
