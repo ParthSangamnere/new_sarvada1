@@ -37,24 +37,29 @@ export default function MultiDamStatusPanel() {
       initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{ type: 'tween', duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-      className="rounded-2xl border border-slate-800/80 bg-slate-900/60 p-4 backdrop-blur-md"
+      className="flex max-h-[calc(100vh-120px)] flex-col rounded-2xl border border-slate-800/80 bg-slate-900/60 backdrop-blur-md"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <GaugeCircle size={18} className="text-sky-300" />
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Official Storage</p>
-            <p className="text-sm font-semibold text-slate-100">20 Feb 2026 — Govt. of Maharashtra</p>
+      {/* Header — pinned */}
+      <div className="flex-shrink-0 px-4 pt-4 pb-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <GaugeCircle size={18} className="text-sky-300" />
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400">Official Storage</p>
+              <p className="text-sm font-semibold text-slate-100">20 Feb 2026 — Govt. of Maharashtra</p>
+            </div>
           </div>
+          <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-100">
+            {REGION_TOTALS.damCount} Dams
+          </span>
         </div>
-        <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-100">
-          {REGION_TOTALS.damCount} Dams
-        </span>
       </div>
 
+      {/* Scrollable body */}
+      <div className="flex-1 overflow-y-auto px-4 pb-4 scrollbar-thin scrollbar-track-slate-900 scrollbar-thumb-slate-700">
+
       {/* Region Aggregate Bar */}
-      <div className="mt-3 rounded-xl border border-slate-800/70 bg-slate-950/50 px-3 py-2.5">
+      <div className="rounded-xl border border-slate-800/70 bg-slate-950/50 px-3 py-2.5">
         <div className="flex items-center justify-between text-[11px]">
           <span className="uppercase tracking-wide text-slate-400">Nashik Region Total</span>
           <span className="font-mono font-bold text-sky-200">{REGION_TOTALS.storagePct}%</span>
@@ -157,6 +162,8 @@ export default function MultiDamStatusPanel() {
         </span>
         <span className="font-mono">Inflow: {REGION_TOTALS.totalInflow.toFixed(0)} MCM</span>
       </div>
+
+      </div>{/* end scrollable body */}
     </motion.div>
   )
 }
